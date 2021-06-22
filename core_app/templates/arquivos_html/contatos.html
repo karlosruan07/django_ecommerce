@@ -1,0 +1,61 @@
+{% extends 'arquivos_html/base.html' %}
+
+{% block title %}
+    <title>Contato</title>
+{% endblock %}
+
+{% block container %}
+<section>
+    <div class="card">
+        <div class="card-title center"><strong>Envie uma mensagem para nós !</strong>
+        </div>
+        <div class="row">
+            <form action="" class="col s12">
+                <div>
+                    <div class="col s6">
+                        <div class="input-field">
+                            <i class="material-icons prefix">face</i>
+                            <input type="text" name="" id="nome" required>
+                            <label for="nome" class="teal-text">Seu nome</label>
+                        </div>
+                    </div>
+
+                    <div class="col s6">
+                        <div class="input-field">
+                            <i class="material-icons prefix">email</i>
+                            <input type="email" name="" id="email" required class="validate">
+                            <label for="email" class="teal-text">Email</label>
+                            <span class="helper-text" data-error="Email inválido"
+                                data-success="Email válido !"></span>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="input-field">
+                            <i class="material-icons prefix">subject</i>
+                            <input type="text" name="" id="assunto" required>
+                            <label for="assunto" class="teal-text">Assunto</label>
+                        </div>
+                    </div>
+
+                    <div class=" input-field col s12">
+                        <i class="material-icons prefix">textsms</i>
+                        <textarea name="" id="mensagem" cols="30" rows="10"
+                            class="materialize-textarea" required></textarea><label class="teal-text"
+                            for="mensagem">Mensagem</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 2%;">
+                        <button class="btn black-text cyan accent-2 z-depth-3">Enviar a mensagem</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+

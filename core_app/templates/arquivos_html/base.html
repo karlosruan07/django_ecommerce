@@ -1,0 +1,163 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    {% block title %}
+        <title>Django ecommerce</title>
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+        <section>
+            <header>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!">three</a></li>
+                </ul>
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="#!">Categoria 1</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!">Categoria 2</a></li>
+                </ul>
+
+                <div class="navbar-fixed">
+                    <nav class="">
+                        <div class="nav-wrapper container">
+                            <a href="{% url 'index' %}"><img class="rigth brand-logo" src="{% static 'img/ecommerce.png' %}" alt="logo" height="70" ></a>
+
+                            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                            <!-- <a href="#" class="right hide-on-large-only" onclick="search_funcao()"><i class="material-icons">search</i></a> -->
+
+
+                            <ul class="right hide-on-med-and-down">
+
+                                <li><a href="{% url 'index' %}">Inicio</a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"
+                                    data-beloworigin="true">Categorias<i
+                                        class="material-icons right">arrow_drop_down</i></a>
+                            </li>
+                                <li><a href="{% url 'contatos' %}">Contato</a></li>
+
+                                <ul class="right hide-on-med-and-down">
+
+                                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"
+                                            data-beloworigin="true">Minha Conta<i
+                                                class="material-icons right">arrow_drop_down</i></a>
+                                    </li>
+                                </ul>
+                            </ul>
+
+                        </div>
+
+                        <div class="nav-content container">
+
+                            <div class="nav-content">
+                                <span class="nav-title"></span>
+                            </div>
+                    </nav>
+
+                </div>
+                <ul class="sidenav" id="mobile-demo">
+                    <li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">Javascript</a></li>
+                    <li><a href="mobile.html">Mobile</a></li>
+                    <li>
+                        <nav>
+
+                            <div class="nav-wrapper white z-depth-1">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search" type="search" required>
+                                        <label class="label-icon" for="search"><i class="material-icons"
+                                                id="search">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </li>
+                </ul>
+            </header>
+        </section>
+    {% endblock %}
+
+    <section class="">
+        <main class="container">
+            {% block container %}
+
+            {% endblock %}
+        </main>
+    </section>
+
+    {% block footer %}
+        <section>
+            <footer class="page-footer blue">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div><a href="#!"><img class="brand-logo z-depth-5" src="{% static 'img/ecommerce.png' %}" alt="logo" height="60" ></a></div>
+                            <div>
+                                <p class="lighten-1" id="texto_rodape">Criamos este plano para incentivar empreendedores a alavancar seus
+                                    negócios na internet, podendo expor sua marca, produtos e serviços de maneira profissional,
+                                    com toda tecnologia necessária e baixo custo.
+                                    Nosso objetivo não é apenas criar o seu site, mais sim também dar o apoio e levar a
+                                    sua empresa ou negócio exponecialmente para o próximo nível através da tecnologia. Venha ver o que nós temos para
+                                    você !</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider white"></div>
+
+                    <div class="row">
+                        <div class="col s6">
+                            <h6 class="white-text"><strong>CONTATOS</strong></h6>
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="#!">teste@gmail.com</a></li>
+                                <li><a class="grey-text text-lighten-3" href="#!">+55 093 xxxxx-xxxx</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col s6">
+                            <h6 class="white-text"><strong>SIGA-NOS NAS REDES SOCIAIS</strong></h6>
+                            
+                            <div class="row">
+                                <div class="col s4">
+                                    <img src="{% static 'img/facebook_.png' %}" alt="50px" width="50px">
+                                </div>
+
+                                <div class="col s4">
+                                    <img src="{% static 'img/instagram_.png' %}" alt="50px" width="50px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider white"></div>
+                <div class="footer-copyright">
+                    <div class="container">
+                        <div class="center">
+                            © 2021 - Todos os direitos reservados.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    {% endblock %}
+    
+</body>
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</html>

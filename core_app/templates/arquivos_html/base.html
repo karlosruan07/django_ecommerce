@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
     {% block title %}
         <title>Django ecommerce</title>
     {% endblock %}
@@ -25,14 +28,31 @@
                     <li><a href="#!">three</a></li>
                 </ul>
 
-                <ul id="dropdown2" class="dropdown-content">
-                    <li><a href="#!">Categoria 1</a></li>
+                <ul id="dropdown-mobile-conta" class="dropdown-content">
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
                     <li class="divider"></li>
-                    <li><a href="#!">Categoria 2</a></li>
+                    <li><a href="#!">three</a></li>
+                </ul>
+
+                <ul id="dropdown2" class="dropdown-content">
+
+                    {% for categoria in categorias %}
+                    <li><a href="{% url 'produtos' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
+                        <li class="divider"></li>
+                    {% endfor %}
+                </ul>
+
+                <ul id="dropdown-mobile-categoria" class="dropdown-content">
+                    {% for categoria in categorias %}
+                        <li><a href="{% url 'produtos' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
+                        <li class="divider"></li>
+                    {% endfor %}
+
                 </ul>
 
                 <div class="navbar-fixed">
-                    <nav class="">
+                    <nav class="black">
                         <div class="nav-wrapper container">
                             <a href="{% url 'index' %}"><img class="rigth brand-logo" src="{% static 'img/ecommerce.png' %}" alt="logo" height="70" ></a>
 
@@ -43,16 +63,16 @@
 
                             <ul class="right hide-on-med-and-down">
 
-                                <li><a href="{% url 'index' %}">Inicio</a></li>
-                                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"
+                                <li><a href="{% url 'index' %}" class="pink-text">Inicio</a></li>
+                                <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown2"
                                     data-beloworigin="true">Categorias<i
                                         class="material-icons right">arrow_drop_down</i></a>
                             </li>
-                                <li><a href="{% url 'contatos' %}">Contato</a></li>
+                                <li><a href="{% url 'contatos' %}"class="pink-text">Contato</a></li>
 
                                 <ul class="right hide-on-med-and-down">
 
-                                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"
+                                    <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown1"
                                             data-beloworigin="true">Minha Conta<i
                                                 class="material-icons right">arrow_drop_down</i></a>
                                     </li>
@@ -69,11 +89,19 @@
                     </nav>
 
                 </div>
-                <ul class="sidenav" id="mobile-demo">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">Javascript</a></li>
-                    <li><a href="mobile.html">Mobile</a></li>
+                <ul class="sidenav black" id="mobile-demo">
+                    <li><a href="{% url 'index' %}" class="pink-text">INICIO</a></li>
+                    <div class="divider pink"></div>
+                    <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown-mobile-categoria"
+                        data-beloworigin="true">CATEGORIA<i class="right"><img src="{% static 'img/icones/arrow_drop_down_white.svg' %}" alt=""></i></a>
+                    </li>
+                    <div class="divider pink"></div>
+                    <li><a href="#" class="pink-text">CONTATO</a></li>
+                    <div class="divider pink"></div>
+                    <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown-mobile-conta"
+                        data-beloworigin="true">MINHA CONTA<i class="right"><img src="{% static 'img/icones/arrow_drop_down_white.svg' %}" alt=""></i></a>
+                    </li>
+                    <div class="divider pink"></div>
                     <li>
                         <nav>
 
@@ -81,9 +109,9 @@
                                 <form>
                                     <div class="input-field">
                                         <input id="search" type="search" required>
-                                        <label class="label-icon" for="search"><i class="material-icons"
-                                                id="search">search</i></label>
-                                        <i class="material-icons">close</i>
+                                        <label class="label-icon" for="search"><i class="search"
+                                                id="search-icon"><img src="{% static 'img/icones/search_black.svg' %}" alt=""></i></label>
+                                                <i class="material-icons">send</i>
                                     </div>
                                 </form>
                             </div>
@@ -104,7 +132,7 @@
 
     {% block footer %}
         <section>
-            <footer class="page-footer blue">
+            <footer class="page-footer black">
                 <div class="container">
                     <div class="row">
                         <div class="col s12">

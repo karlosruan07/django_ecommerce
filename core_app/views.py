@@ -13,9 +13,6 @@ def teste(request):
     }
     return render(request, 'arquivos_html/index.html', context)
 
-def index(request):
-    return render(request, 'arquivos_html/index.html')
-
 
 def contatos(request):
     return render(request, 'arquivos_html/contatos.html')
@@ -23,5 +20,3 @@ def contatos(request):
 def lista_produtos(request):
     return render(request, 'arquivos_html/lista_produtos.html')
 
-def produto(request):
-    return render(request, 'arquivos_html/produto.html')

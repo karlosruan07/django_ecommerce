@@ -1,0 +1,37 @@
+{% extends 'arquivos_html/base.html' %}
+
+{% block container %}
+<h3>Lista de produtos do catalog</h3>
+
+<div>
+    <div class="s12">
+
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Identificador</th>
+                    <th>Criado em</th>
+                    <th>Modificado em</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for produto in lista_produtos %}
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.slug }}</td>
+                    <td>{{ produto.criado }}</td>
+                    <td>{{ produto.modificado }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}

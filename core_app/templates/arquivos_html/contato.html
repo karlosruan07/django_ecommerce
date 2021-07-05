@@ -10,8 +10,12 @@
         <div class="card-title center"><strong>Envie uma mensagem para nós !</strong>
         </div>
         <div class="row">
-            <form action="" class="col s12">
+            <form action="" method="POST" class="col s12">
+                
+                {% csrf_token %}
+                
                 <div>
+    
                     <div class="col s6">
                         <div class="input-field">
                             <i class="material-icons prefix">face</i>
@@ -19,7 +23,7 @@
                             <label for="nome" class="teal-text">Seu nome</label>
                         </div>
                     </div>
-
+                    
                     <div class="col s6">
                         <div class="input-field">
                             <i class="material-icons prefix">email</i>
@@ -46,7 +50,7 @@
                     </div>
 
                     <div class="col s12" style="margin-bottom: 2%;">
-                        <button class="btn black-text cyan accent-2 z-depth-3">Enviar a mensagem</button>
+                        <button class="btn black-text pink z-depth-3">Enviar a mensagem</button>
                     </div>
                 </div>
 

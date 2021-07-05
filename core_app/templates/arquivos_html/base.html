@@ -68,7 +68,7 @@
                                     data-beloworigin="true">Categorias<i
                                         class="material-icons right">arrow_drop_down</i></a>
                             </li>
-                                <li><a href="{% url 'contatos' %}"class="pink-text">Contato</a></li>
+                                <li><a href="{% url 'contato' %}"class="pink-text">Contato</a></li>
 
                                 <ul class="right hide-on-med-and-down">
 
@@ -96,7 +96,7 @@
                         data-beloworigin="true">CATEGORIA<i class="right"><img src="{% static 'img/icones/arrow_drop_down_white.svg' %}" alt=""></i></a>
                     </li>
                     <div class="divider pink"></div>
-                    <li><a href="#" class="pink-text">CONTATO</a></li>
+                    <li><a href="{% url 'contato' %}" class="pink-text">CONTATO</a></li>
                     <div class="divider pink"></div>
                     <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown-mobile-conta"
                         data-beloworigin="true">MINHA CONTA<i class="right"><img src="{% static 'img/icones/arrow_drop_down_white.svg' %}" alt=""></i></a>
@@ -112,6 +112,7 @@
                                         <label class="label-icon" for="search"><i class="search"
                                                 id="search-icon"><img src="{% static 'img/icones/search_black.svg' %}" alt=""></i></label>
                                                 <i class="material-icons">send</i>
+                                                
                                     </div>
                                 </form>
                             </div>

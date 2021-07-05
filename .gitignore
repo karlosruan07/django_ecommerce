@@ -1,0 +1,5 @@
+.idea
+.vscode
+/minhaenv
+catalog/__pycache__
+core_app/__pycache__

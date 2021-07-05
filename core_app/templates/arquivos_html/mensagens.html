@@ -1,0 +1,29 @@
+
+{% extends 'arquivos_html/base.html' %}
+
+{% load static %}
+
+{% block container %}
+
+    <h1>Mensagems</h1>
+
+    <div>
+    
+        {% if messages %}
+            <ul class="">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"  {% endif %}><html> {{ message }} </html></li>
+                {% endfor %}
+            </ul>
+            
+        {% endif %}
+
+    </div>
+
+
+    <div>
+        <button type="" onclick="M.toast({html: 'Teste'})" class="btn">Toast</button>
+    </div>
+
+{% endblock %}
+

@@ -46,9 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    #LIBS
+    'widget_tweaks',
+    #APPS
     'core_app',
     'catalog',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +161,13 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 25
+DEFAULT_FROM_EMAIL = 'karlosruan9@gmail.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+

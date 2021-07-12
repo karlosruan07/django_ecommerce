@@ -32,9 +32,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-!_=xos=m*y=lcorh5s#++37=meqfof2$&c&x&i-9^7p(3dlt)j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -160,10 +160,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+
 
 
 

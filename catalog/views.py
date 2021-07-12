@@ -1,21 +1,40 @@
 from django.http.response import HttpResponse
 from core_app.views import lista_produtos
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Produto, Categoria
 
+####  IMPORT DAS CLASSES GENÉRICAS  ####
 
-def produtos(request):
-    lista_produtos = Produto.objects.order_by('-criado')#ordena por ordem decrescente
-    return render(request, 'catalog/lista_produtos.html', {'lista_produtos': lista_produtos})
+from django.views import generic
 
-def categoria(request, slug):
-    categoria = Categoria.objects.get(slug=slug)
-    context = {
-        "titulo_atual" : categoria,
-        "lista_produtos" : Produto.objects.filter(categoria=categoria)
-    }
+####  IMPORT DAS CLASSES GENÉRICAS  ####
 
-    return render(request, 'catalog/filtro_cat_prod.html', context)
+class Lista_Produtos(generic.ListView):
+    model = Produto
+    template_name = 'catalog/lista_produtos.html'
+    context_object_name = 'produtos'  #renomeando a variável que contem a lista de objetos que irá para o template
+    paginate_by = 2 #vai para o template a variável paginator e a pag_obj
+    
+    
+produtos = Lista_Produtos.as_view()
+
+
+class ListaProdutoCategoria(generic.ListView):
+    model = Produto
+    template_name = 'catalog/filtro_cat_prod.html'
+    context_object_name = 'lista_produtos'
+    
+    def get_queryset(self):
+        #categoria = get_object_or_404(Categoria, slug=self.kwargs['slug'])
+        return Produto.objects.filter(categoria__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super(ListaProdutoCategoria, self).get_context_data(**kwargs)
+        context['categoria_atual'] = get_object_or_404(Categoria, slug=self.kwargs['slug'])
+        return context
+    
+lista_produto_categoria = ListaProdutoCategoria.as_view()
+
 
 def produto(request, slug):
     produto = Produto.objects.get(slug=slug)

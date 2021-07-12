@@ -4,8 +4,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.produtos, name='index'),
     
-    path('produtos/<str:slug>/', views.categoria, name='produtos'),
-    path('produto/<str:slug>/', views.produto, name='produto'),
+    path('', views.produtos, name='index'),#todos os produtos
+    path('produtos/<str:slug>/', views.lista_produto_categoria, name='produtos'),#filtro pela categoria
+    path('produto/<str:slug>/', views.produto, name='produto'),#apenas um produto
 ]

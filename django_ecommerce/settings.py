@@ -32,9 +32,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-!_=xos=m*y=lcorh5s#++37=meqfof2$&c&x&i-9^7p(3dlt)j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -47,11 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #LIBS
-    'widget_tweaks',
+    'crispy_forms',
     #APPS
     'core_app',
     'catalog',
-    'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -159,6 +159,13 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+
 
 django_heroku.settings(locals())
 

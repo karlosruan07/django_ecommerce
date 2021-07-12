@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col s12">
+        <ul class="pagination center">
+            
+            {% if page_obj.has_previous %}
+            <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i
+                        class="material-icons">chevron_left</i></a></li>
+            {% endif %}
+
+            {% for page in paginator.page_range %}
+            <li {% if page_obj.number == page %} class="active pink" {% endif %}><a class="waves-effect" href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="waves-effect"> <a href="?page={{ page_obj.next_page_number }}"><i
+                        class="material-icons">chevron_right</i></a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+</div>

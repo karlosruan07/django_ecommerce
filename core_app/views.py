@@ -6,8 +6,13 @@ from django.http import HttpResponse
 
 from django.contrib import messages
 
-
 from .forms import Form_contato
+
+####  IMPORT DAS CLASSES GENÉRICAS  ####
+
+from django.views.generic import TemplateView
+
+####  IMPORT DAS CLASSES GENÉRICAS  ####
 
 def mensagens(request):
     #mensagens = messages.success(request, 'Profile details updated.')
@@ -48,3 +53,10 @@ def contato(request):
 def lista_produtos(request):
     return render(request, 'arquivos_html/lista_produtos.html')
 
+
+####  USO DAS CLASSES GENÉRICAS  ####
+
+class ClasseTeste(TemplateView):
+    template_name = 'arquivos_html/index.html'
+    
+    

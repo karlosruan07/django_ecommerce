@@ -1,5 +1,4 @@
 from django.http.response import HttpResponse
-from core_app.views import lista_produtos
 from django.shortcuts import render, get_object_or_404
 from .models import Produto, Categoria
 

@@ -4,10 +4,14 @@ from django.db import models
 from django.forms import fields
 from .models import Contato
 
+#formulario de cadastro
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from django.core.mail import send_mail
 from django.conf import settings
 
-class Form_contato(forms.ModelForm):
+class FormularioContato(forms.ModelForm):
     class Meta:
         model = Contato
         fields = ['nome', 'email','titulo','mensagem']
@@ -22,5 +26,12 @@ class Form_contato(forms.ModelForm):
         send_mail(titulo, mensagem, settings.DEFAULT_FROM_EMAIL,
                 ['karlosruan93@gmail.com']
                 )
+        
+class FormularioRegistro(UserCreationForm):
+    email = forms.EmailField(max_length=100)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
     
 

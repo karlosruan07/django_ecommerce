@@ -2,3 +2,11 @@
 html{
     font-family: 'Times New Roman', Times, serif;
 }
+
+.alert{
+    color: red;
+}
+
+.materialize-pink-text {
+    color: #e91e63  !important;
+  }

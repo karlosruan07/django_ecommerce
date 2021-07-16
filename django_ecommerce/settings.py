@@ -160,10 +160,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-
-
 django_heroku.settings(locals())
 
 EMAIL_HOST = ''
@@ -174,4 +170,9 @@ DEFAULT_FROM_EMAIL = 'karlosruan9@gmail.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+#CONFIGURAÇÕES DE LOGIN, LOGOUT..ETC
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'login'
 

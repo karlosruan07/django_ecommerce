@@ -4,9 +4,14 @@ from django.core.mail.message import forbid_multi_line_headers
 from django.shortcuts import render, redirect, resolve_url
 from django.http import HttpResponse
 
-from django.contrib import messages
+from django.urls import reverse_lazy
 
-from .forms import Form_contato
+from django.contrib import messages
+from django.views import generic
+from django.views.generic import CreateView
+
+#views de cadastro e registros ...
+from .forms import FormularioContato, FormularioRegistro
 
 ####  IMPORT DAS CLASSES GENÉRICAS  ####
 
@@ -34,7 +39,7 @@ def teste(request):
 def contato(request):
     sucesso = False
     
-    form = Form_contato(request.POST or None)
+    form = FormularioContato(request.POST or None)
     
     if form.is_valid():
         form.send_email()
@@ -50,13 +55,17 @@ def contato(request):
     
     return render(request, 'arquivos_html/forms.html', context)
 
-def lista_produtos(request):
-    return render(request, 'arquivos_html/lista_produtos.html')
 
 
 ####  USO DAS CLASSES GENÉRICAS  ####
 
+class CriarUsuario(CreateView):
+    template_name = 'arquivos_html/registro.html'
+    success_url = reverse_lazy('login')
+    form_class = FormularioRegistro
+    
+criar_usuario = CriarUsuario.as_view()
+
 class ClasseTeste(TemplateView):
     template_name = 'arquivos_html/index.html'
-    
-    
+

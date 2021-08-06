@@ -1,6 +1,9 @@
 
 {% extends 'arquivos_html/base.html' %}
+
 {% load static %}
+{% load core_extras %}
+
 {% block container %}
 <h2 class="title center">{{categoria_atual|capfirst}}</h2>
 
@@ -8,7 +11,7 @@
 <div class="row">
     {% for produto in lista_produtos %}
     <div class="col s12 m6 l3">
-        <a href="{% url 'produto' produto.slug %}">
+        <a href="{% url 'detalhe-produto' produto.slug %}">
             <div class="card z-depth-5">
                 <div class="card-image">
                     <img src="{% static 'img/produtos/html.jpg' %}">
@@ -29,7 +32,13 @@
         </a>
 
     </div>
+
+    {% empty %}
+        <h1>Não há items !</h1>
     {% endfor %}
 </div>
+
+
+{% paginacao %}
 
 {% endblock %}

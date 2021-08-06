@@ -23,30 +23,29 @@
         <section>
             <header>
                 <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!">one</a></li>
-                    <li><a href="#!">two</a></li>
+                    <li><a href="{% url 'login' %}">Entrar</a></li>
                     <li class="divider"></li>
-                    <li><a href="#!">three</a></li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
+                    
                 </ul>
 
                 <ul id="dropdown-mobile-conta" class="dropdown-content">
-                    <li><a href="#!">one</a></li>
-                    <li><a href="#!">two</a></li>
+                    <li><a href="{% url 'login' %}">Entrar</a></li>
                     <li class="divider"></li>
-                    <li><a href="#!">three</a></li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
                 </ul>
 
                 <ul id="dropdown2" class="dropdown-content">
 
                     {% for categoria in categorias %}
-                    <li><a href="{% url 'produtos' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
+                    <li><a href="{% url 'lista-produto-categoria' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
                         <li class="divider"></li>
                     {% endfor %}
                 </ul>
 
                 <ul id="dropdown-mobile-categoria" class="dropdown-content">
                     {% for categoria in categorias %}
-                        <li><a href="{% url 'produtos' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
+                        <li><a href="{% url 'lista-produto-categoria' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
                         <li class="divider"></li>
                     {% endfor %}
 

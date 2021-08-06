@@ -10,3 +10,21 @@ html{
 .materialize-pink-text {
     color: #e91e63  !important;
   }
+
+
+#error_1_id_username{
+    color: red;
+}
+
+#error_1_id_email{
+    color: red;
+}
+
+#error_1_id_password1{
+    color: red;
+}
+
+#error_1_id_password2{
+    color: red;
+}
+

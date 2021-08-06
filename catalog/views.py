@@ -14,34 +14,31 @@ class Lista_Produtos(generic.ListView):
     context_object_name = 'produtos'  #renomeando a variável que contem a lista de objetos que irá para o template
     paginate_by = 2 #vai para o template a variável paginator e a pag_obj
     
-    
-produtos = Lista_Produtos.as_view()
 
+class DetalheProduto(generic.DeleteView):
+    model = Produto
+    template_name = 'catalog/produto.html'
+    context_object_name = 'produto'
+    
 
 class ListaProdutoCategoria(generic.ListView):
     model = Produto
     template_name = 'catalog/filtro_cat_prod.html'
     context_object_name = 'lista_produtos'
-    
+    paginate_by = 2
+
     def get_queryset(self):
         #categoria = get_object_or_404(Categoria, slug=self.kwargs['slug'])
-        return Produto.objects.filter(categoria__slug=self.kwargs['slug'])
+        context =  Produto.objects.filter(categoria__slug=self.kwargs['slug'])
+        return context
     
     def get_context_data(self, **kwargs):
         context = super(ListaProdutoCategoria, self).get_context_data(**kwargs)
         context['categoria_atual'] = get_object_or_404(Categoria, slug=self.kwargs['slug'])
         return context
     
-lista_produto_categoria = ListaProdutoCategoria.as_view()
 
 
-def produto(request, slug):
-    produto = Produto.objects.get(slug=slug)
-    
-    context = {
-        "produto" : produto   
-    }
-    
-    return render(request, 'catalog/produto.html', context)
+
 
 

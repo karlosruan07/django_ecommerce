@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.views import generic
 from django.views.generic import CreateView
 
-#views de cadastro e registros ...
+#forms de cadastro e registros ...
 from .forms import FormularioContato, FormularioRegistro
 
 ####  IMPORT DAS CLASSES GENÉRICAS  ####
@@ -59,12 +59,11 @@ def contato(request):
 
 ####  USO DAS CLASSES GENÉRICAS  ####
 
-class CriarUsuario(CreateView):
+class CadastrarUsuario(CreateView):
     template_name = 'arquivos_html/registro.html'
     success_url = reverse_lazy('login')
     form_class = FormularioRegistro
     
-criar_usuario = CriarUsuario.as_view()
 
 class ClasseTeste(TemplateView):
     template_name = 'arquivos_html/index.html'

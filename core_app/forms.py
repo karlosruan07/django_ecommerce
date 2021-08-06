@@ -7,6 +7,7 @@ from .models import Contato
 #formulario de cadastro
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -34,4 +35,9 @@ class FormularioRegistro(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
     
+    def clean_email(self):
+        e = self.cleaned_data['email']#pega o objeto email da lista da classe User acima
+        if User.objects.filter(email=e).exists():
+            raise ValidationError(f"O email {e} já existe.")
+        return e
 

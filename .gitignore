@@ -1,6 +1,7 @@
 .idea
 .vscode
 minhaenv
+venv
 __pycache__
 db.sqlite3
 local_settings.py

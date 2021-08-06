@@ -1,9 +1,5 @@
 
-from django import forms
-from django.core.mail.message import forbid_multi_line_headers
 from django.shortcuts import render, redirect, resolve_url
-from django.http import HttpResponse
-
 from django.urls import reverse_lazy
 
 from django.contrib import messages
@@ -11,7 +7,7 @@ from django.views import generic
 from django.views.generic import CreateView
 
 #forms de cadastro e registros ...
-from .forms import FormularioContato, FormularioRegistro
+from .forms import FormularioContato
 
 ####  IMPORT DAS CLASSES GENÉRICAS  ####
 
@@ -58,12 +54,6 @@ def contato(request):
 
 
 ####  USO DAS CLASSES GENÉRICAS  ####
-
-class CadastrarUsuario(CreateView):
-    template_name = 'arquivos_html/registro.html'
-    success_url = reverse_lazy('login')
-    form_class = FormularioRegistro
-    
 
 class ClasseTeste(TemplateView):
     template_name = 'arquivos_html/index.html'

@@ -19,7 +19,7 @@ class Produto(models.Model):
     slug = models.SlugField('Identificador', max_length=100)
     
     categoria = models.ForeignKey('catalog.Categoria', verbose_name='Categoria', on_delete=models.PROTECT)
-    descricao = models.TextField('Descrição', blank=True)
+    descricao = models.TextField('Descrição', blank=True) 
     preco = models.DecimalField('Preço', decimal_places=2, max_digits=8)# EX: 99999999, 99
     
     criado = models.DateTimeField('Criado em', auto_now_add=True)

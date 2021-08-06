@@ -7,7 +7,7 @@ from .models import User
 
 class FormularioAdmin(UserCreationForm):
     class Meta:
-        models = User
+        model = User
         fields = ['username', 'name', 'email']#a senha e a confirmação de senha, o UserCreationForm já trata disso
 
 class FormularioAdminUser(forms.ModelForm):

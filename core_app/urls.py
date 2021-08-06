@@ -17,6 +17,6 @@ urlpatterns = [
     
     #URLs do login, logout ...etc
     path('', include('django.contrib.auth.urls')),
-    path('cadastrar/', views.CadastrarUsuario.as_view(), name='cadastrar')
+    
     
 ]

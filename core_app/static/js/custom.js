@@ -9,6 +9,9 @@ $(document).ready(function () {
   });
 });
 
+//sidnav
 $(document).ready(function(){
   $('.sidenav').sidenav();
 });
+
+

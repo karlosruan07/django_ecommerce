@@ -14,15 +14,24 @@
         <div class="col s12">
             <form method="POST">
 
-                {% csrf_token %}
-                {{ form | crispy }}
+                 {% csrf_token %}
                 
-                {% comment %}
+                {% comment %}  {{ form | crispy }} {% endcomment %}
+                
+                
                 <div class="input-field">
                     <i class="material-icons prefix" style="color: #e91e63">face</i>
                     {{ form.username }}
-                    <label for="{{ form.username.auto_id }}">Seu nome</label>
+                    <label for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
                 </div>
+
+
+                <div class="input-field">
+                    <i class="material-icons prefix" style="color: #e91e63">face</i>
+                    {{ form.name }}
+                    <label for="{{ form.name.auto_id }}">{{ form.name.label }}</label>
+                </div>
+
 
                 <div class="input-field">
                     <i class="material-icons prefix" style="color: #e91e63">email</i>
@@ -41,7 +50,7 @@
                     {{ form.password2 }}
                     <label for="{{ form.password2.auto_id }}">{{ form.password2.label }}</label>
                 </div> 
-                {% endcomment %}
+                
 
                 <div class="center" style="margin-top: 2%; margin-bottom: 2%;"><button type="submit"
                         class="btn pink">ENVIAR</button></div>

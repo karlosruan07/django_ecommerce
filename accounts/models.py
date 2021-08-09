@@ -6,7 +6,7 @@ from django.db.models.fields import EmailField
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField('Apelido / Usuário', max_length=50,
+    username = models.CharField('Apelido ou Usuário', max_length=50,
     unique=True, help_text='Um nome curto que será usado para identificar de forma única você na plataforma')
     name = models.CharField('Nome', max_length=100)
     email = models.EmailField('E-mail', unique=True)

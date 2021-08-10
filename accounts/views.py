@@ -1,4 +1,5 @@
 
+from django.http import request
 from django.urls import reverse_lazy
 
 from .models import User
@@ -14,7 +15,14 @@ class CadastrarUsuario(generic.CreateView):
     success_url = reverse_lazy('login')
 
 
-class IndexView(LoginRequiredMixin, generic.TemplateView):#LoginRequiredMixin tem que ser o primeiro parâmetro
-    template_name = 'accounts/conta.html'
+class EditarDadosUsuario(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    template_name = 'accounts/editar_dados.html'
+    fields = ['username', 'email']
+    success_url = reverse_lazy('index')
+
+    def get_object(self):
+        return self.request.user
+    
 
 

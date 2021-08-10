@@ -1,7 +1,6 @@
 
-from django.http import request
+
 from django.urls import path
-from django.urls.conf import include
 from . import views
 
 ####  IMPORT DAS CLASSES GENÉRICAS  ####
@@ -15,8 +14,5 @@ urlpatterns = [
     ####  URLs DAS CLASSES GENÉRICAS  ####    
     path('index/', ClasseTeste.as_view()),
     
-    #URLs do login, logout ...etc
-    path('', include('django.contrib.auth.urls')),
-    
-    
 ]
+

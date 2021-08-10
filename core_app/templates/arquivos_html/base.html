@@ -25,17 +25,22 @@
     {% block header %}
     <section>
         <header>
+
+            <!-- OPÇÕES DA USUÁRIO -->
+
             <ul id="dropdown1" class="dropdown-content">
-                <li><a href="#">Alterar Dados</a></li>
+                <li><a href="{% url 'editar-dados-usuario' %}">Alterar Dados</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Alterar Senha </a></li>
+                <li><a href="{% url 'alterar-senha' %}">Alterar Senha </a></li>
                 <li><a href="{% url 'login' %}">Entrar</a></li>
                 <li class="divider"></li>
                 <li><a href="{% url 'logout' %}">Sair</a></li>
 
             </ul>
 
-            <ul id="dropdown2" class="dropdown-content">
+            <ul id="categorias" class="dropdown-content">
+
+                <!-- laço de repetição das categorias  -->
 
                 {% for categoria in categorias %}
                 <li><a href="{% url 'lista-produto-categoria' categoria.slug %}">{{ categoria.nome|capfirst }}</a></li>
@@ -56,27 +61,27 @@
                     <div class="nav-wrapper container">
                         <a href="{% url 'index' %}"><img class="rigth brand-logo" src="{% static 'img/ecommerce.png' %}"
                                 alt="logo" height="70"></a>
-                        
+
                         <!-- BOTÃO MENU MOBILE -->
                         <a href="#" data-target="menu-mobile" class="sidenav-trigger"><i
                                 class="material-icons">menu</i></a>
 
                         <ul class="right hide-on-med-and-down">
 
-                            <li><a href="{% url 'index' %}" class="pink-text">Inicio</a></li>
-                            <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown2"
-                                    data-beloworigin="true">Categorias<i
-                                        class="material-icons right">arrow_drop_down</i></a>
+                            <li><a href="{% url 'index' %}" class="pink-text"><b>INICIO</b></a></li>
+
+                            <li><a href="{% url 'contato' %}" class="pink-text"><b>CONTATO</b></a></li>
+
+                            <li><a href="#" class="black-text dropdown-trigger btn pink" data-target='categorias'><i
+                                        class="material-icons left">list</i>CATEGORIAS <i
+                                        class="material-icons left">expand_more</i></a>
                             </li>
-                            <li><a href="{% url 'contato' %}" class="pink-text">Contato</a></li>
+                            
+                            <li><a href="#" class="black-text dropdown-trigger btn pink" data-target='dropdown1'><i
+                                        class="material-icons left">face</i>MINHA CONTA <i
+                                        class="material-icons left">expand_more</i></a>
+                            </li>
 
-                            <ul class="right hide-on-med-and-down">
-
-                                <li><a class="dropdown-trigger pink-text" href="#!" data-target="dropdown1"
-                                        data-beloworigin="true">Minha Conta<i
-                                            class="material-icons right">arrow_drop_down</i></a>
-                                </li>
-                            </ul>
                         </ul>
 
                     </div>
@@ -89,7 +94,7 @@
                 </nav>
 
             </div>
-            
+
             <!--NAVBAR DE MENU LATERAL -->
             <ul id="menu-mobile" class="sidenav">
                 <li>
@@ -102,8 +107,12 @@
                         <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
                     </div>
                 </li>
-                <li><a href="#"><i class="material-icons">description</i>Alterar Dados</a></li>
-                <li><a href="#"><i class="material-icons">password</i>Alterar Senha</a></li>
+                <li><a href="{% url 'editar-dados-usuario' %}"><i class="material-icons">description</i>Alterar
+                        Dados</a></li>
+                <li><a href="{% url 'alterar-senha' %}"><i class="material-icons">password</i>Alterar Senha</a></li>
+                <li><a href="{% url 'resetar-senha' %}"><i class="material-icons">lock</i>Esqueci Minha Senha</a></li>
+                <li><a href="{% url 'login' %}"><i class="material-icons">login</i>Entrar</a></li>
+                <li><a href="{% url 'logout' %}"><i class="material-icons">logout</i>Sair</a></li>
                 <li>
                     <div class="divider"></div>
                 </li>

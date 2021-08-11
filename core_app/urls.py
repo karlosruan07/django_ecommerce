@@ -12,7 +12,7 @@ urlpatterns = [
     path('mensagens/', views.mensagens, name='mensagens'),
     
     ####  URLs DAS CLASSES GENÉRICAS  ####    
-    path('index/', ClasseTeste.as_view()),
+    path('teste/', views.teste, name='teste'),
     
 ]
 

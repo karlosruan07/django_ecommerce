@@ -76,7 +76,7 @@
                                         class="material-icons left">list</i>CATEGORIAS <i
                                         class="material-icons left">expand_more</i></a>
                             </li>
-                            
+
                             <li><a href="#" class="black-text dropdown-trigger btn pink" data-target='dropdown1'><i
                                         class="material-icons left">face</i>MINHA CONTA <i
                                         class="material-icons left">expand_more</i></a>
@@ -125,8 +125,17 @@
     </section>
     {% endblock %}
 
-    <section class="">
+    <section>
         <main class="container">
+
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             {% block container %}
 
             {% endblock %}

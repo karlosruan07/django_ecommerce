@@ -1,12 +1,22 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls.base import reverse_lazy
 from .models import Produto, Categoria
+
+from django.contrib.messages.views import SuccessMessageMixin
 
 ####  IMPORT DAS CLASSES GENÉRICAS  ####
 
 from django.views import generic
 
-####  IMPORT DAS CLASSES GENÉRICAS  ####
+
+class AdicionarProduto(generic.CreateView, SuccessMessageMixin):
+    template_name = 'catalog/form.html'
+    model = Produto
+    fields = ['nome', 'descricao', 'preco', 'slug', 'categoria']
+    success_url = reverse_lazy('index')
+    success_message = "%(name)% foi criado com sucesso"
+
 
 class Lista_Produtos(generic.ListView):
     model = Produto

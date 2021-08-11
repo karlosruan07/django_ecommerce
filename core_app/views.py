@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect, resolve_url
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from django.contrib import messages
 from django.views import generic
@@ -17,7 +18,7 @@ from django.views.generic import TemplateView
 
 def mensagens(request):
     #mensagens = messages.success(request, 'Profile details updated.')
-    mensagens = messages.add_message(request, messages.ERROR, 'Hello Word !')
+    mensagens = messages.error(request, 'Hello Word !!!')
     return render(request, 'arquivos_html/mensagens.html', mensagens)
 
 def teste(request):
@@ -41,7 +42,10 @@ def contato(request):
         form.send_email()
         sucesso = True
         return redirect('index')
-    
+
+    elif request.method == 'POST':
+        messages.error(request, messages.ERROR, 'Hello Word !')
+
     titulo_forms = 'Envie uma mensagem para nós !'
     context = {
         'titulo_forms': titulo_forms ,

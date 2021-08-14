@@ -1,5 +1,4 @@
 
-from django.http import request
 from django.urls import reverse_lazy
 
 from .models import User

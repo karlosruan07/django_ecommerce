@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('core_app.urls')),
     path('', include('catalog.urls')),
     path('', include('accounts.urls')),
+    path('', include('checkout.urls')),
 
     #URLs do login, logout ...etc
     path('', include('django.contrib.auth.urls')),

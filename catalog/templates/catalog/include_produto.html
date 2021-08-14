@@ -1,0 +1,23 @@
+
+{% load static %}
+
+<div class="col s12 m6 l3">
+    <a href="{% url 'detalhe-produto' produto.slug %}">
+        <div class="card z-depth-5">
+            <div class="card-image">
+                <img src="{% static 'img/produtos/html.jpg' %}">
+                <span class="card-title">{{ produto.nome }}</span>
+            </div>
+            <div class="card-content">
+                <p class="truncate">{{ produto.descricao }}</p>
+            </div>
+
+            <div class="card-action">
+                <a href="{% url 'detalhe-produto' produto.slug %}" class="btn left pink"><strong>Detalhe</strong></a>
+                <a href="{% url 'adicionar-item-carrinho' produto.slug %}" class="btn rigth pink"><strong>Adicionar</strong></a>
+              </div>
+
+        </div>
+    </a>
+
+</div>

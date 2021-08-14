@@ -10,7 +10,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materialize.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
@@ -113,6 +113,9 @@
                 <li><a href="{% url 'resetar-senha' %}"><i class="material-icons">lock</i>Esqueci Minha Senha</a></li>
                 <li><a href="{% url 'login' %}"><i class="material-icons">login</i>Entrar</a></li>
                 <li><a href="{% url 'logout' %}"><i class="material-icons">logout</i>Sair</a></li>
+
+                <li><a href="{% url 'carrinho' %}"><i class="material-icons">shopping_cart</i>Meu Carrinho</a></li>
+
                 <li>
                     <div class="divider"></div>
                 </li>

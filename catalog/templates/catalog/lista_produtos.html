@@ -6,31 +6,11 @@
 {% block container %}
 <h4 class="title center">Veja nossos produtos</h4>
 
-
 <div class="row">
     {% for produto in produtos %}
-    <div class="col s12 m6 l3">
-        <a href="{% url 'detalhe-produto' produto.slug %}">
-            <div class="card z-depth-5">
-                <div class="card-image">
-                    <img src="{% static 'img/produtos/html.jpg' %}">
-                    <span class="card-title">{{ produto.nome }}</span>
-                </div>
-                <div class="card-content">
-                    <p class="truncate">{{ produto.descricao }}</p>
-                </div>
-                <div class="card-action center">
-                    <ul class="left">
-                        <li><a href="#"><button type="" class="btn">Butão</button></a></li>
-                    </ul>
-                    <ul class="rigth">
-                        <li><a href="#"><button type="" class="btn">Butão</button></a></li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+    
+    {% include 'catalog/include_produto.html' %}
 
-    </div>
     {% endfor %}
 </div>
 

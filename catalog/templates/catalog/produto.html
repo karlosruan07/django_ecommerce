@@ -1,10 +1,9 @@
-
 {% extends 'arquivos_html/base.html' %}
 
 {% load static %}
 
 {% block title %}
-    <title>{{produto.nome}}</title>
+<title>{{produto.nome}}</title>
 {% endblock %}
 
 {% block container %}
@@ -18,13 +17,10 @@
                     <img src="{% static 'img/produtos/html.jpg' %}">
                     <span class="card-title">{{ produto.nome }}</span>
                 </div>
-            
+
                 <div class="card-action center">
-                    <ul class="left">
-                        <li><a href="#"><button type="" class="btn">Butão</button></a></li>
-                    </ul>
-                    <ul class="rigth">
-                        <li><a href="#"><button type="" class="btn">Butão</button></a></li>
+                    <ul>
+                        <li><a href="{% url 'adicionar-item-carrinho' produto.slug %}"><button type="" class="btn pink"><strong>Adicionar ao Carrinho</strong></button></a></li>
                     </ul>
                 </div>
             </div>
@@ -35,9 +31,8 @@
     <div class="col s12 m6 l6">
         <h5 style="text-align: justify;">{{produto.descricao}}</h5>
     </div>
-    
+
 </div>
 
 
 {% endblock %}
-

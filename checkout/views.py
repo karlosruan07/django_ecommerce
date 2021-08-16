@@ -38,11 +38,11 @@ class ListarItensCarrinho(TemplateView):
         FormularioItemCarrinho = modelformset_factory(
             Carrinho, fields=('quantidade',), can_delete=True, extra=0
         )
-        session_key = self.request.session.session_key
+        session_key = self.request.session.session_key #pega a sessão atual
 
         if session_key:
             context['formset'] = FormularioItemCarrinho(
-                queryset=Carrinho.objects.filter(chave_carrinho=session_key)
+                queryset=Carrinho.objects.filter(chave_carrinho=session_key)#filtra os objetos da sessão atual
             )
         else:
             context['formset'] = FormularioItemCarrinho(

@@ -17,6 +17,7 @@
                 <th>Nome</th>
                 <th>Preço do Item</th>
                 <th>Quantidade</th>
+                <th>Opção</th>
             </tr>
         </thead>
 
@@ -31,7 +32,12 @@
 
                 <td>{{ form.quantidade }} </td>
 
-                <td>{{ form.DELETE }}</td>
+                <td>
+
+                    <button title="Apagar" value="on" type="submit" class="btn-small" name="{{ form.DELETE.html_name }}"><i class="material-icons">delete</i> Apagar</button>
+                    {{ form.id }}
+                
+                </td>
 
             </tr>
 

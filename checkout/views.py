@@ -1,6 +1,6 @@
 
 from django.forms.models import modelformset_factory
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import RedirectView, TemplateView
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -33,21 +33,49 @@ class ListarItensCarrinho(TemplateView):
     
     template_name = 'checkout/carrinho.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(ListarItensCarrinho, self).get_context_data(**kwargs)
+    def get_formset(self, clear=False):
+
         FormularioItemCarrinho = modelformset_factory(
             Carrinho, fields=('quantidade',), can_delete=True, extra=0
         )
+
         session_key = self.request.session.session_key #pega a sessão atual
 
         if session_key:
-            context['formset'] = FormularioItemCarrinho(
-                queryset=Carrinho.objects.filter(chave_carrinho=session_key)#filtra os objetos da sessão atual
+
+            if clear:
+                formset = FormularioItemCarrinho(
+                queryset=Carrinho.objects.filter(chave_carrinho=session_key) #filtra os objetos da sessão atual
             )
+
+            else:
+                formset = FormularioItemCarrinho(
+                queryset=Carrinho.objects.filter(chave_carrinho=session_key),
+                data=self.request.POST or None  #filtra os objetos da sessão atual
+            )
+
         else:
-            context['formset'] = FormularioItemCarrinho(
-                queryset=Carrinho.objects.none()
-            )
+
+            formset = FormularioItemCarrinho(queryset=Carrinho.objects.none())
+
+        return formset
+
+    def get_context_data(self, **kwargs):
+        context = super(ListarItensCarrinho, self).get_context_data(**kwargs)
+        context['formset'] = self.get_formset()
         return context
+
+    def post(self, request, *args, **kwargs):
+        formset = self.get_formset()
+        context = self.get_context_data(**kwargs)
+
+        if formset.is_valid():
+            formset.save()
+        
+            messages.success(request, 'Carrinho atualizado com sucesso !!!')
+            context['formset'] = self.get_formset(clear=True)
+        
+        return self.render_to_response(context)
+
 
 

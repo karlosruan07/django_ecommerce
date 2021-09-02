@@ -1,12 +1,14 @@
 
 from django.forms.models import modelformset_factory
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import RedirectView, TemplateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from catalog.models import Produto
-from .models import Carrinho
+from .models import Carrinho, Pedido
 
 from django.forms import modelform_factory
 
@@ -78,4 +80,20 @@ class ListarItensCarrinho(TemplateView):
         return self.render_to_response(context)
 
 
+class CheckoutView(LoginRequiredMixin, TemplateView):
+    template_name = 'checkout/checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        session_key = request.session.session_key
+
+        if session_key and Carrinho.objects.filter(chave_carrinho=session_key).exists():
+            cart_items = Carrinho.objects.filter(chave_carrinho=session_key)
+            pedido = Pedido.objects.criar_pedido(
+                user=request.user, cart_items=cart_items
+            )
+
+        else:
+            messages.success(request, 'Não há item no carrinho de comprar.')
+            return redirect('carrinho')
+        return super(CheckoutView, self).get(request, *args, **kwargs)
 

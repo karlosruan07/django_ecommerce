@@ -23,7 +23,7 @@ class GerenciadorCarrinho(models.Manager):
 
         return item_carrinho, criado
 
-
+#CartItem
 class Carrinho(models.Model):
 
     chave_carrinho = models.CharField('Chave do Carrinho', max_length=40, db_index=True)
@@ -42,6 +42,17 @@ class Carrinho(models.Model):
         return '{}, [{}]'.format(self.produto, self.quantidade)
 
 
+class GerenciadorPedido(models.Manager):
+
+    def criar_pedido(self, user, cart_items):
+        pedido = self.create(user=user)
+        for item_carrinho in cart_items:
+            items_pedido = ItensPedido.objects.create(
+                pedido=pedido, quantidade=item_carrinho.quantidade, produto=item_carrinho.product,
+                preco=item_carrinho.preco
+            )
+        return pedido
+
 class Pedido(models.Model):
 
     STATUS_ = (
@@ -53,13 +64,16 @@ class Pedido(models.Model):
     OPCAO_PAGAMENTO_ = (
         ('pagseguro', 'PagSeguro'),
         ('paypal', 'Paypal'),
+        ('deposito', 'Depósito')
     )
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', on_delete=models.CASCADE)
     status = models.IntegerField('Situação', choices=STATUS_, default=0, blank=True)
-    opcao_pagamento = models.CharField('Opção de pagamentos', choices=OPCAO_PAGAMENTO_, max_length=10 )
+    opcao_pagamento = models.CharField('Opção de pagamentos', choices=OPCAO_PAGAMENTO_, max_length=10, default='deposito')
     criado = models.DateTimeField('Criado em', auto_now_add=True)#é adicionado no momento da criação, não pode ser alterado
     modificado = models.DateTimeField('Modificado em', auto_now=True)#é adicionado no momento da modificação, pode ser alterado
+
+    objects = GerenciadorPedido()
 
     class Meta:
         verbose_name = 'Pedido'

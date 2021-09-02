@@ -27,7 +27,7 @@
 
             <tr>
                 <td>{{ form.instance.produto.pk }}</td>
-                <td>{{ form.instance.produto }}</td>
+                <td><a href="{% url 'detalhe-produto' form.instance.produto.slug %}">{{ form.instance.produto }}</a></td>
                 <td>R$ {{ form.instance.preco | floatformat:"2" }}</td>
 
                 <td>{{ form.quantidade }} </td>
@@ -52,12 +52,13 @@
 
             <div class="center">
                 <div><a href="{% url 'index' %}" class="btn pink" style="margin-top: 5px;"><strong>Continuar Comprando</strong></a></div>
-                <div><a><button class="btn pink" style="margin-top: 5px;"><strong>Finalizar Compra</strong></button></a></div>
+        
                 <div class="rigth"><button class="btn pink" style="margin-top: 5px;" type="submit"><strong>Atualizar</strong></button></div>
             </div>
         </div>
     </div>
-
 </form>
+
+<div class="center" style="margin-bottom: 5px;"><a href="{% url 'checkout' %}" ><button class="btn pink" style="margin-top: 5px;"><strong>Finalizar Compra</strong></button></a></div>
 
 {% endblock %}

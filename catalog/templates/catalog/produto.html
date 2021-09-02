@@ -17,7 +17,9 @@
                     <img src="{% static 'img/produtos/html.jpg' %}">
                     <span class="card-title">{{ produto.nome }}</span>
                 </div>
-
+                <div class="card-content">
+                    <h4>R$ {{ produto.preco }}</h4>
+                </div>
                 <div class="card-action center">
                     <ul>
                         <li><a href="{% url 'adicionar-item-carrinho' produto.slug %}"><button type="" class="btn pink"><strong>Adicionar ao Carrinho</strong></button></a></li>

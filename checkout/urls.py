@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
 
     path('carrinho/adicionar/<str:slug>/', views.CriarItemCarrinho.as_view(), name='adicionar-item-carrinho'),
-    path('carrinho/', views.ListarItensCarrinho.as_view(), name='carrinho')
+    path('carrinho/', views.ListarItensCarrinho.as_view(), name='carrinho'),
+
+    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
 
 ]

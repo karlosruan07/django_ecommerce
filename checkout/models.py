@@ -44,11 +44,11 @@ class Carrinho(models.Model):
 
 class GerenciadorPedido(models.Manager):
 
-    def criar_pedido(self, user, cart_items):
-        pedido = self.create(user=user)
+    def criar_pedido(self, usuario, cart_items):
+        pedido = self.create(usuario=usuario)
         for item_carrinho in cart_items:
             items_pedido = ItensPedido.objects.create(
-                pedido=pedido, quantidade=item_carrinho.quantidade, produto=item_carrinho.product,
+                pedido=pedido, quantidade=item_carrinho.quantidade, produto=item_carrinho.produto,
                 preco=item_carrinho.preco
             )
         return pedido

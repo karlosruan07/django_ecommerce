@@ -89,7 +89,7 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
         if session_key and Carrinho.objects.filter(chave_carrinho=session_key).exists():
             cart_items = Carrinho.objects.filter(chave_carrinho=session_key)
             pedido = Pedido.objects.criar_pedido(
-                user=request.user, cart_items=cart_items
+                usuario=request.user, cart_items=cart_items
             )
 
         else:

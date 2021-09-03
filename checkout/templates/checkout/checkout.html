@@ -12,13 +12,19 @@
         </div>
 
         <div class="card-content">
-            <div>
-                <p>Seu Pedido foi realizado com sucesso ! Para realizar o pagamento, faça o deposito na seguinte conta !</p>
-            </div>
+    
+            <p>
+                Pedido #{{ pedido.pk }}
+            </p>
+
+            <section>
+                    <div class="center"><a href="#"><button class="btn green">PAGAR COM PAGSEGURO</button></a></div>
+                    <div class="center" style="margin-top: 5px;"><a href="#"><button class="btn blue">PAGAR COM PAYPAL</button></a></div>
+            </section>
 
             <div class="card-action">
                 <div class="center">
-                    <a href="{% url 'index' %}" class="btn"><strong>CONTINUAR COMPRANDO</strong></a>
+                    <a href="{% url 'index' %}" class="btn pink"><strong>CONTINUAR COMPRANDO</strong></a>
                 </div>
             </div>
 

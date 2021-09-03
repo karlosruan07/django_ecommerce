@@ -82,6 +82,10 @@ class Pedido(models.Model):
     def __str__(self):
         return 'Pedido {}'.format(self.pk)
 
+    def produtos(self):
+        produtos_ids = self.itens.values_list('produto')
+        return Produto.objects.filter(pk__in=produtos_ids)
+
 
 class ItensPedido(models.Model):
 

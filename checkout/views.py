@@ -1,6 +1,7 @@
 
 from django.forms.models import modelformset_factory
 from django.shortcuts import get_object_or_404, redirect
+from django.views import generic
 from django.views.generic import RedirectView, TemplateView
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -86,8 +87,8 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         session_key = request.session.session_key
 
-        if session_key and Carrinho.objects.filter(chave_carrinho=session_key).exists():
-            cart_items = Carrinho.objects.filter(chave_carrinho=session_key)
+        if session_key and Carrinho.objects.filter(chave_carrinho=session_key).exists():#verifica se há items no carrinho
+            cart_items = Carrinho.objects.filter(chave_carrinho=session_key)#filtra os items do carrinho pela chave do carrinho da seção antiga
             pedido = Pedido.objects.criar_pedido(
                 usuario=request.user, cart_items=cart_items
             )
@@ -95,5 +96,18 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
         else:
             messages.success(request, 'Não há item no carrinho de comprar.')
             return redirect('carrinho')
-        return super(CheckoutView, self).get(request, *args, **kwargs)
+        response = super(CheckoutView, self).get(request, *args, **kwargs)
+        response.context_data['pedido'] = pedido
+        return response
+
+
+class ListaPedido(LoginRequiredMixin, generic.ListView):
+
+    template_name = 'checkout/lista_pedidos.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Pedido.objects.filter(usuario=self.request.user)
+
+
 

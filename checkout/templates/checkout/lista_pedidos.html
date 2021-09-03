@@ -1,0 +1,53 @@
+
+{% extends 'arquivos_html/base.html' %}
+
+{% load core_extras %}
+
+{% block container %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Produtos</th>
+            <th>Situação</th>
+            <th>Data</th>
+        </tr>
+
+        <tbody>
+
+            {% for pedido in object_list %}
+
+            <tr>
+                <td>
+                    <a href="#">{{ pedido.pk }}</a>
+                </td>
+
+                <td>
+                
+                    {% for produto in pedido.produtos %}
+                    {{ produto.nome }} {% if not forloop.last %} <br>{% endif %}
+                    {% endfor %}
+                
+                </td>
+
+                <td>
+                    {{ pedido.get_status_display }} <!-- mostra o valor do choice que está no banco -->
+                </td>
+
+                <td>
+                    {{ pedido.criado | date:"d/m/Y" }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </thead>
+</table>
+
+{% paginacao %}
+
+{% endblock %}
+

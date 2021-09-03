@@ -8,5 +8,6 @@ urlpatterns = [
     path('carrinho/', views.ListarItensCarrinho.as_view(), name='carrinho'),
 
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
+    path('meus-pedidos/', views.ListaPedido.as_view(), name='meus-pedidos')
 
 ]

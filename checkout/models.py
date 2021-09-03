@@ -86,6 +86,15 @@ class Pedido(models.Model):
         produtos_ids = self.itens.values_list('produto')
         return Produto.objects.filter(pk__in=produtos_ids)
 
+    def total(self):#metodo para somar os total dos preços do itens do carrinho
+        aggregate_queryset = self.itens.aggregate(
+            total=models.Sum(
+                models.F('preco') * models.F('quantidade'),
+                output_field=models.DecimalField()
+            )
+        )
+        return aggregate_queryset['total']
+
 
 class ItensPedido(models.Model):
 

@@ -110,4 +110,13 @@ class ListaPedido(LoginRequiredMixin, generic.ListView):
         return Pedido.objects.filter(usuario=self.request.user)
 
 
+class DetalhePedido(LoginRequiredMixin, generic.DetailView):
+    template_name = 'checkout/detalhe_pedido.html'
+    model = Pedido
+    context_object_name = 'pedido'
+
+    def get_queryset(self):
+        return Pedido.objects.filter(usuario=self.request.user)
+
+
 

@@ -1,0 +1,59 @@
+{% extends 'arquivos_html/base.html' %}
+
+{% block container %}
+
+
+
+<div class="card center">
+    <div class="col s12 m6">
+
+        <div class="card-content">
+            <span class="card-title">Pedido #{{ pedido.pk }}</span> <!-- pedido é o nome que foi definido no context_object_name na view -->
+
+            <section>
+                <ul>
+                    <li>
+                        Total R$ {{ pedido.total }}
+                    </li>
+                    <li>
+                        Situação : {{ pedido.get_status_display }}
+                    </li>
+                    <li>
+                        {{ pedido.criado | date:"d/m/Y H:i" }}
+                    </li>
+                    <li>
+                        Pagamento : {{ pedido.get_opcao_pagamento_display }}
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <div class="col s12 m6">
+            <div class="card-content">
+        
+                <div class="card-title">Item do pedido</div>
+        
+                {% for item in object.itens.all %} <!-- object.itens.all é o nome do related_name que está definido na base de dados -->
+        
+                <ul>
+                    <li>Produto : {{ item.produto }}</li>
+        
+                    <li>Quantidade : {{ item.quantidade }}</li>
+        
+                    <li>Preço : {{ item.preco }}</li>
+        
+                    
+        
+                </ul>
+        
+                {% endfor %}
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
+<div class="center" style="margin: 7px;"><a href="{% url 'index' %}" class="btn pink"><strong>CONTINUAR COMPRANDO</strong></a></div>
+{% endblock %}

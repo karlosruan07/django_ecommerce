@@ -16,7 +16,7 @@
 
         <tbody>
 
-            {% for pedido in object_list %}
+            {% for pedido in object_list %} <!-- vem uma lista com todos os carrinhos do usuário -->
 
             <tr>
                 <td>
@@ -25,8 +25,8 @@
 
                 <td>
                 
-                    {% for produto in pedido.produtos %}
-                    {{ produto.nome }} {% if not forloop.last %} <br>{% endif %}
+                    {% for produto in pedido.produtos %} <!-- vem pega os carrinhos no laço e lista seus produtos -->
+                    <a href="{% url 'detalhe-pedido' pedido.pk %}">{{ produto.nome }}</a> {% if not forloop.last %} <br>{% endif %}
                     {% endfor %}
                 
                 </td>

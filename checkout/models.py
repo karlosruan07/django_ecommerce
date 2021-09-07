@@ -1,8 +1,12 @@
 
 from django.db import models
+from django.urls import conf
 from catalog.models import Produto
-
 from django.conf import settings
+
+#imports do pagseguro
+
+from pagseguro import PagSeguro
 
 
 class GerenciadorCarrinho(models.Manager):
@@ -13,6 +17,7 @@ class GerenciadorCarrinho(models.Manager):
             criado = False
             item_carrinho = self.get(chave_carrinho=chave_carrinho, produto=produto)
             item_carrinho.quantidade = item_carrinho.quantidade + 1
+            item_carrinho.preco = item_carrinho.preco * item_carrinho.quantidade
             item_carrinho.save()
 
         else:
@@ -94,6 +99,34 @@ class Pedido(models.Model):
             )
         )
         return aggregate_queryset['total']
+
+    def pagseguro(self):
+        pg = PagSeguro(#passa as informações da conta do pagseguro que estão no settings
+            email=settings.PAGSEGURO_EMAIL,
+            token=settings.PAGSEGURO_TOKEN,
+            config={
+                'sandbox':settings.PAGSEGURO_SANDBOX
+            }
+        )
+
+        pg.sender = {#envia as informações de quem está fazendo a compra, olhar a documentação para ver quais campos é necessário
+            'email':self.usuario.email
+        }
+        pg.reference_prefix = None #este campo serve para o pagseguro nos notificar quando houver notificaações no pagamento
+        pg.shipping = None #dados da entrega
+        pg.reference = self.pk #id do pedido
+        
+
+        for item in self.itens.all():
+            pg.items.append(
+                {
+                    'id' : item.produto.pk,
+                    'description' : item.produto.nome,
+                    'quantity' : item.quantidade,
+                    'amount' : '%.2f' % item.preco
+                }
+            )
+        return pg
 
 
 class ItensPedido(models.Model):

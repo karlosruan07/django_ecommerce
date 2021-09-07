@@ -1,6 +1,8 @@
 
 from django.forms.models import modelformset_factory
+from django.http import response, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
+from django.urls.base import reverse
 from django.views import generic
 from django.views.generic import RedirectView, TemplateView
 from django.contrib import messages
@@ -119,4 +121,14 @@ class DetalhePedido(LoginRequiredMixin, generic.DetailView):
         return Pedido.objects.filter(usuario=self.request.user)
 
 
+class PagseguroView(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        pedido_pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(Pedido.objects.filter(usuario=self.request.user), pk=pedido_pk)
+        pg = pedido.pagseguro()
+        pg.redirect_url = HttpResponseRedirect(
+            reverse('detalhe-pedido', args=[pedido.pk])
+        )
+        response = pg.checkout()
+        return response.payment_url
 

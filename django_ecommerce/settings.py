@@ -185,3 +185,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.ModelBackend'
 )
+
+#INTEGRAÇÃO COM O PAGSEGURO
+
+PAGSEGURO_TOKEN = ''#token de email de cadastro na conta do pagseguro
+PAGSEGURO_EMAIL = ''#email cadastrado no pagseguro.
+PAGSEGURO_SANDBOX = True
+
+
+
+

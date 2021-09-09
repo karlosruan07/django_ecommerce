@@ -15,6 +15,10 @@ from .models import Carrinho, Pedido
 
 from django.forms import modelform_factory
 
+from django.views.decorators.csrf import csrf_exempt
+from pagseguro import PagSeguro
+from django.conf import settings
+
 class CriarItemCarrinho(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
@@ -120,6 +124,9 @@ class DetalhePedido(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         return Pedido.objects.filter(usuario=self.request.user)
 
+"""pg.redirect_url = HttpResponseRedirect(
+            reverse('detalhe-pedido', args=[pedido.pk])
+        )"""
 
 class PagseguroView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
@@ -129,6 +136,33 @@ class PagseguroView(LoginRequiredMixin, RedirectView):
         pg.redirect_url = HttpResponseRedirect(
             reverse('detalhe-pedido', args=[pedido.pk])
         )
+
+        pg.notification_url = HttpResponseRedirect(
+            reverse('notificacao-pagseguro')#ESTA VIEW AINDA NÃO ESTÁ FEITA
+        )
+
         response = pg.checkout()
         return response.payment_url
+
+
+@csrf_exempt
+def pagseguro_notification(request):
+    codigo_notificacao = request.POST.get('notificationCode', None)#recebe o código do pagseguro 
+    if codigo_notificacao:
+        pg = PagSeguro(
+            email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
+            config={'sandbox': settings.PAGSEGURO_SANDBOX}
+        )
+        dados_notificacao = pg.check_notification(codigo_notificacao)#veifica o código enviado
+        status = dados_notificacao.status#status do pagseguro que é enviado
+        referencia = dados_notificacao.reference#id do nosso pedido
+
+        try:
+            pedido = Pedido.objects.get(pk=referencia)#pedido com o id
+        except Pedido.DoesNotExist:
+            pass
+        else:
+            pedido.pagseguro_update_status(status)
+
+    return response.HttpResponse('OK')
 

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 #import django_heroku
 
+import environ
+
 from pathlib import Path
 
 import os
@@ -188,10 +190,10 @@ AUTHENTICATION_BACKENDS = (
 
 #INTEGRAÇÃO COM O PAGSEGURO
 
-PAGSEGURO_TOKEN = ''#token de email de cadastro na conta do pagseguro
-PAGSEGURO_EMAIL = ''#email cadastrado no pagseguro.
-PAGSEGURO_SANDBOX = True
-
-
+env = environ.Env()
+env.read_env(str(BASE_DIR / ".env"))
+PAGSEGURO_TOKEN = env("PAGSEGURO_TOKEN")
+PAGSEGURO_EMAIL = env("PAGSEGURO_EMAIL")
+PAGSEGURO_SANDBOX = env("PAGSEGURO_SANDBOX")
 
 

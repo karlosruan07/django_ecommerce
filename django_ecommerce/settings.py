@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 #import django_heroku
 
-import environ
-
 from pathlib import Path
+
+import environ
 
 import os
 # ####################3CONFIGURAÇÃO DO GILENO PARA O HEROKU #####################
@@ -191,7 +191,7 @@ AUTHENTICATION_BACKENDS = (
 #INTEGRAÇÃO COM O PAGSEGURO
 
 env = environ.Env()
-env.read_env(str(BASE_DIR / ".env"))
+env.read_env(os.path.join(BASE_DIR, '.env'))
 PAGSEGURO_TOKEN = env("PAGSEGURO_TOKEN")
 PAGSEGURO_EMAIL = env("PAGSEGURO_EMAIL")
 PAGSEGURO_SANDBOX = env("PAGSEGURO_SANDBOX")

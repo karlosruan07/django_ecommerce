@@ -137,7 +137,7 @@ class PagseguroView(LoginRequiredMixin, RedirectView):
             reverse('detalhe-pedido', args=[pedido.pk])
         )
 
-        pg.notification_url = HttpResponseRedirect(
+        pg.notification_url = self.request.build_absolute_uri(
             reverse('notificacao-pagseguro')#ESTA VIEW AINDA NÃO ESTÁ FEITA
         )
 

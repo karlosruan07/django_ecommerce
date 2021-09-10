@@ -123,7 +123,6 @@ class Pedido(models.Model):
         pg.shipping = None #dados da entrega
         pg.reference = self.pk #id do pedido
         
-
         for item in self.itens.all():
             pg.items.append(
                 {
@@ -134,6 +133,24 @@ class Pedido(models.Model):
                 }
             )
         return pg
+
+    def paypal(self):
+        paypal_dict = {
+            'upload' : '1',#se houver a possibilidade de haver mais de um item no carrinho, então é obrigatório usar essa variável
+            'business' : settings.PAYPAL_EMAIL,
+            'invoice' : self.pk,#referencia um id de um pedido do nosso sistema
+            'cmd' : '_cart',#se houver a possibilidade de haver mais de um item no carrinho, então é obrigatório usar essa variável
+            'currency_code' : 'BRL',
+            'charset' : 'utf-8',
+        }
+
+        index=1
+        for item in self.itens.all():#itens vem do atributo nomeado na classe ItensPedido
+            paypal_dict['amount_{}'.format(index)] = '%.2f' % item.preco
+            paypal_dict['item_name_{}'.format(index)] = item.produto.nome
+            paypal_dict['quantity_{}'.format(index)] = item.quantidade
+            index += 1
+        return paypal_dict
 
 
 class ItensPedido(models.Model):

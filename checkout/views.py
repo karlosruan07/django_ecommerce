@@ -19,6 +19,8 @@ from django.views.decorators.csrf import csrf_exempt
 from pagseguro import PagSeguro
 from django.conf import settings
 
+from paypal.standard.forms import PayPalPaymentsForm
+
 class CriarItemCarrinho(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
@@ -124,9 +126,6 @@ class DetalhePedido(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         return Pedido.objects.filter(usuario=self.request.user)
 
-"""pg.redirect_url = HttpResponseRedirect(
-            reverse('detalhe-pedido', args=[pedido.pk])
-        )"""
 
 class PagseguroView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
@@ -138,7 +137,7 @@ class PagseguroView(LoginRequiredMixin, RedirectView):
         )
 
         pg.notification_url = self.request.build_absolute_uri(
-            reverse('notificacao-pagseguro')#ESTA VIEW AINDA NÃO ESTÁ FEITA
+            reverse('notificacao-pagseguro')#adiciona a url de resposta da API caso o mercado pago queira se comunicar com a gente
         )
 
         response = pg.checkout()
@@ -165,4 +164,25 @@ def pagseguro_notification(request):
             pedido.pagseguro_update_status(status)
 
     return response.HttpResponse('OK')
+import paypal
 
+class PaypalView(LoginRequiredMixin, TemplateView):
+    template_name = 'checkout/paypal.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaypalView, self).get_context_data(**kwargs)
+        pedido_pk = self.kwargs.get('pk')
+        pedido = get_object_or_404(
+            Pedido.objects.filter(usuario=self.request.user), pk=pedido_pk
+        )
+        paypal_dict = pedido.paypal()#este dicionário vem do método criado no model
+        
+        paypal_dict['return_url'] = self.request.build_absolute_uri(#url que o paypal vai redirecionar o usuário depos de realizar o pagamento
+            reverse('meus-pedidos')
+        )
+        paypal_dict['cancel_return'] = self.request.build_absolute_uri(
+            reverse('meus-pedidos')
+        )
+        context['form'] = PayPalPaymentsForm(initial=paypal_dict)
+        return context
+        

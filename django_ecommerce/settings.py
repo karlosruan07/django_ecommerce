@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-#import django_heroku
+import django_heroku
 
 from pathlib import Path
 
@@ -166,7 +166,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
@@ -189,13 +189,13 @@ AUTHENTICATION_BACKENDS = (
 
 #INTEGRAÇÃO COM O PAGSEGURO
 
-PAGSEGURO_TOKEN = ''#token de email de cadastro na conta do pagseguro
-PAGSEGURO_EMAIL = ''#email cadastrado no pagseguro.
+PAGSEGURO_TOKEN = 'F8DE9BCCC57144AB8290AA7709E42022'#token de email de cadastro na conta do pagseguro
+PAGSEGURO_EMAIL = 'karlosruan9@gmail.com'#email cadastrado no pagseguro.
 PAGSEGURO_SANDBOX = True
 
 
 #INTEGRAÇÃO COM PAYPAL
 
 PAYPAL_TEST = True #está em ambiente de sanbox.
-PAYPAL_EMAIL = ''#email cadastrado no pagseguro.
+PAYPAL_EMAIL = 'karlosruan9@gmail.com'#email cadastrado no paypal.
 

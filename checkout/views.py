@@ -1,4 +1,5 @@
 
+from django_ecommerce.settings import PAYPAL_EMAIL
 from django.forms.models import modelformset_factory
 from django.http import response, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -20,6 +21,8 @@ from pagseguro import PagSeguro
 from django.conf import settings
 
 from paypal.standard.forms import PayPalPaymentsForm
+from paypal.standard.models import ST_PP_COMPLETED#armazena o valor quando a transação está completada
+from paypal.standard.ipn.signals import valid_ipn_received#os sinais ficam aqui nessa biblioteca
 
 class CriarItemCarrinho(RedirectView):
 
@@ -183,6 +186,22 @@ class PaypalView(LoginRequiredMixin, TemplateView):
         paypal_dict['cancel_return'] = self.request.build_absolute_uri(
             reverse('meus-pedidos')
         )
+
+        paypal_dict['notify_url'] = self.request.build_absolute_uri(
+            reverse('paypal-ipn')
+        )
+
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
         
+
+def notificacao_paypal(sender, **kwargs):
+    ipn_obj = sender #objeto da notificação
+    if ipn_obj.payment_status == ST_PP_COMPLETED and ipn_obj.receiver_email == settings.PAYPAL_EMAIL:#verifica se o status da transação é comcluída e se o email a mensagem é o mesmo dos settings
+        try:
+            pedido = Pedido.objects.get(pk=ipn_obj.invoice)
+            pedido.complete()#esta função esta nos models e muda o status de um determinado pedido
+        except Pedido.DoesNotExist:
+            pass
+
+valid_ipn_received.connect(notificacao_paypal)#quando um sinal é recebido ele chama essa função

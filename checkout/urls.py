@@ -1,5 +1,6 @@
 
 from django.urls import path
+import paypal
 from . import views
 
 urlpatterns = [

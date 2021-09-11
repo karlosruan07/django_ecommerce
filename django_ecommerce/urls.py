@@ -26,4 +26,7 @@ urlpatterns = [
 
     #URLs do login, logout ...etc
     path('', include('django.contrib.auth.urls')),
+
+    #Urls do paypal
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]

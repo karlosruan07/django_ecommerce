@@ -23,6 +23,8 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 from paypal.standard.models import ST_PP_COMPLETED#armazena o valor quando a transação está completada
 from paypal.standard.ipn.signals import valid_ipn_received#os sinais ficam aqui nessa biblioteca
+import paypal
+
 
 class CriarItemCarrinho(RedirectView):
 
@@ -103,7 +105,8 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
             pedido = Pedido.objects.criar_pedido(
                 usuario=request.user, cart_items=cart_items
             )
-
+            cart_items.delete()
+        
         else:
             messages.success(request, 'Não há item no carrinho de comprar.')
             return redirect('carrinho')
@@ -167,7 +170,7 @@ def pagseguro_notification(request):
             pedido.pagseguro_update_status(status)
 
     return response.HttpResponse('OK')
-import paypal
+
 
 class PaypalView(LoginRequiredMixin, TemplateView):
     template_name = 'checkout/paypal.html'
@@ -191,10 +194,13 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('paypal-ipn')
         )
 
+        paypal_dict['callback_url'] = self.request.build_absolute_uri(
+            reverse('paypal-ipn')
+        )
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
         
-
+@csrf_exempt
 def notificacao_paypal(sender, **kwargs):
     ipn_obj = sender #objeto da notificação
     if ipn_obj.payment_status == ST_PP_COMPLETED and ipn_obj.receiver_email == settings.PAYPAL_EMAIL:#verifica se o status da transação é comcluída e se o email a mensagem é o mesmo dos settings

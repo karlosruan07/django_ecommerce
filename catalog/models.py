@@ -24,6 +24,7 @@ class Produto(models.Model):
     
     criado = models.DateTimeField('Criado em', auto_now_add=True)
     modificado = models.DateTimeField('Modificado em', auto_now=True)
+    imagem = models.ImageField(upload_to='produtos/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Produtos'

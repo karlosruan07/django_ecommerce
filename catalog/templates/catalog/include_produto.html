@@ -5,7 +5,17 @@
     <a href="{% url 'detalhe-produto' produto.slug %}">
         <div class="card z-depth-5">
             <div class="card-image">
+
+                {% if produto.image %}
+
+                <img src="{{ produto.imagem.url }}">
+
+                {% else %}
+
                 <img src="{% static 'img/produtos/html.jpg' %}">
+
+                {% endif %}
+
                 <span class="card-title">{{ produto.nome }}</span>
             </div>
             <div class="card-content">

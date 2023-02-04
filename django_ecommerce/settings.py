@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import django_heroku
+#import django_heroku
 
 from pathlib import Path
 
@@ -166,7 +166,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') """
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
@@ -199,3 +199,8 @@ PAGSEGURO_SANDBOX = True
 PAYPAL_TEST = True #está em ambiente de sanbox.
 PAYPAL_EMAIL = 'karlosruan9@gmail.com'#email cadastrado no paypal.
 
+
+#Media
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
